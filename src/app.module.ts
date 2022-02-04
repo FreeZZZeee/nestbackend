@@ -12,9 +12,12 @@ import { FilesModule } from './files/files.module';
 import { SitemapModule } from './sitemap/sitemap.module';
 import { TelegramModule } from './telegram/telegram.module';
 import {getTelegramConfig} from './configs/telegram.config';
+import { HhModule } from './hh/hh.module';
+import {ScheduleModule} from '@nestjs/schedule';
 
 @Module({
 	imports: [
+		ScheduleModule.forRoot(),
 		ConfigModule.forRoot(),
 		TypegooseModule.forRootAsync({
 			imports: [ConfigModule],
@@ -31,7 +34,8 @@ import {getTelegramConfig} from './configs/telegram.config';
 			imports: [ConfigModule],
 			inject: [ConfigService],
 			useFactory: getTelegramConfig
-		})
+		}),
+		HhModule
 	],
 	controllers: [AppController],
 	providers: [AppService],
